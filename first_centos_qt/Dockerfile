@@ -2,11 +2,11 @@ FROM centos:7
 MAINTAINER kotik <obrbkru@apriorit.com>
 
 RUN yum -y update && yum clean all
-RUN yum install -y protobuf-compiler graphviz libxml2-devel libxslt-devel
+RUN yum install -y protobuf-compiler graphviz libxml2-devel libxslt-devel wget
 
 #install qt
 RUN mkdir /tmp/qt && \
-cd /tmp/qt \
+cd /tmp/qt && \
 wget -q http://download.qt.io/archive/qt/5.7/5.7.1/qt-opensource-linux-x64-5.7.1.run 
 
 COPY resources /srv/resources
