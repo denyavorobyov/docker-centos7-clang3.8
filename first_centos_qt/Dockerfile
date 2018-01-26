@@ -3,17 +3,18 @@ MAINTAINER kotik <obrbkru@apriorit.com>
 
 RUN yum -y update && yum clean all
 RUN yum install -y protobuf-compiler graphviz libxml2-devel libxslt-devel wget
-COPY resources /srv/resources
+
 #install qt
+COPY resources /srv/resources
 RUN mkdir /tmp/qt && \
 cd /tmp/qt && \
-wget -q http://download.qt.io/archive/qt/5.7/5.7.1/qt-opensource-linux-x64-5.7.1.run
-RUN ls .
-RUN chmod +x ./qt-opensource-linux-x64-5.7.1.run
-RUN ./qt-opensource-linux-x64-5.7.1.run --script /srv/resources/qt-installer-noninteractive.qs -platform minimal
+wget -q http://download.qt.io/archive/qt/5.7/5.7.1/qt-opensource-linux-x64-5.7.1.run && \
+chmod +x ./qt-opensource-linux-x64-5.7.1.run && \
+./qt-opensource-linux-x64-5.7.1.run --script /srv/resources/qt-installer-noninteractive.qs -platform minimal && \
+rm -rf /tmp/qt
 
-RUN /opt/Qt5.7.1/Tools/QtCreator/bin/qbs setup-toolchains --detect 
-RUN /opt/Qt5.7.1/Tools/QtCreator/bin/qbs setup-qt '/opt/Qt5.7.1/5.7/gcc_64/bin/qmake' QtProfile
-RUN /opt/Qt5.7.1/Tools/QtCreator/bin/qbs config profiles.QtProfile.baseProfile clang
+RUN /opt/Qt5.7.1/Tools/QtCreator/bin/qbs setup-toolchains --detect && \
+/opt/Qt5.7.1/Tools/QtCreator/bin/qbs setup-qt '/opt/Qt5.7.1/5.7/gcc_64/bin/qmake' QtProfile && \
+/opt/Qt5.7.1/Tools/QtCreator/bin/qbs config profiles.QtProfile.baseProfile clang
+
 RUN yes | cp /opt/Qt5.7.1/5.7/gcc_64/lib/*.* /usr/lib64/
-RUN rm -rf /tmp/qt
