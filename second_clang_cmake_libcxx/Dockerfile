@@ -1,8 +1,6 @@
 FROM centos:7
 MAINTAINER kotik <obrbkru@apriorit.com>
 
-RUN yum groups mark convert
-RUN yum groupinstall -y 'Development Tools'
 RUN yum install -y cmake3 cmake wget
 
 #build install clang 3.8.0

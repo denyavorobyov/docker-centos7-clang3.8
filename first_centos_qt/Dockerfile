@@ -1,4 +1,4 @@
-FROM centos:7
+FROM apriorit/docker-centos7-clang3.8:clang3.8
 MAINTAINER kotik <obrbkru@apriorit.com>
 
 RUN yum -y update && yum clean all
