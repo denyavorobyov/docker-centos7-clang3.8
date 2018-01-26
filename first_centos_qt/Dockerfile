@@ -4,7 +4,7 @@ MAINTAINER kotik <obrbkru@apriorit.com>
 RUN yum -y update && yum clean all
 # add custom repo
 RUN yum -y install epel-release yum-plugin-copr python-requests
-RUN yum install -y protobuf-compiler graphviz libxml2-devel libxslt-devel aria2c
+RUN yum install -y protobuf-compiler graphviz libxml2-devel libxslt-devel aria2
 
 #install qt
 COPY resources /srv/resources
