@@ -3,13 +3,11 @@ MAINTAINER kotik <obrbkru@apriorit.com>
 
 RUN yum -y update && yum clean all
 RUN yum install -y protobuf-compiler graphviz libxml2-devel libxslt-devel wget
-
+COPY resources /srv/resources
 #install qt
 RUN mkdir /tmp/qt && \
 cd /tmp/qt && \
 wget -q http://download.qt.io/archive/qt/5.7/5.7.1/qt-opensource-linux-x64-5.7.1.run 
-
-COPY resources /srv/resources
 RUN chmod +x ./qt-opensource-linux-x64-5.7.1.run
 RUN ./qt-opensource-linux-x64-5.7.1.run --script /srv/resources/qt-installer-noninteractive.qs -platform minimal
 
