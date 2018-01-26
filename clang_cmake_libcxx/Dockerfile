@@ -6,7 +6,7 @@ RUN yum install -y cmake3 cmake wget
 #build install clang 3.8.0
 RUN yum -y install epel-release yum-plugin-copr python-requests &&\
 yum copr enable -y alonid/llvm-3.8.0 && \
-install -y clang-3.8.0 && \
+yum install -y clang-3.8.0 && \
 yum install -y clang-3.8.0-devel.x86_64 && \
 export PATH=$PATH:/opt/llvm-3.8.0/bin/
 
