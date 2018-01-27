@@ -15,7 +15,8 @@ chmod +x ./qt-opensource-linux-x64-5.7.1.run && \
 ./qt-opensource-linux-x64-5.7.1.run --script /srv/resources/qt-installer-noninteractive.qs -platform minimal && \
 rm -rf /tmp/qt
 
-RUN /opt/Qt5.7.1/Tools/QtCreator/bin/qbs setup-toolchains --detect && \
+RUN export PATH=$PATH:/opt/llvm-3.8.0/bin/ && \
+/opt/Qt5.7.1/Tools/QtCreator/bin/qbs setup-toolchains --detect && \
 /opt/Qt5.7.1/Tools/QtCreator/bin/qbs setup-qt '/opt/Qt5.7.1/5.7/gcc_64/bin/qmake' QtProfile && \
 /opt/Qt5.7.1/Tools/QtCreator/bin/qbs config profiles.QtProfile.baseProfile clang
 
