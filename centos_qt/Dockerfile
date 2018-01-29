@@ -10,7 +10,7 @@ RUN yum install -y protobuf-compiler graphviz libxml2-devel libxslt-devel aria2
 COPY resources /srv/resources
 RUN mkdir /tmp/qt && \
 cd /tmp/qt && \
-aria2c http://download.qt.io/official_releases/qt/5.7/5.7.1/qt-opensource-linux-x64-5.7.1.run.meta4 && \
+aria2c http://download.qt.io/official_releases/qt/5.10/5.10.0/qt-opensource-linux-x64-5.10.0.run.meta4 && \
 chmod +x ./qt-opensource-linux-x64-5.7.1.run && \
 ./qt-opensource-linux-x64-5.7.1.run --script /srv/resources/qt-installer-noninteractive.qs -platform minimal && \
 rm -rf /tmp/qt
