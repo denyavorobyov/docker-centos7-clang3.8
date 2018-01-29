@@ -1,4 +1,4 @@
-FROM apriorit/docker-centos7-clang3.8:qt
+FROM apriorit/docker-centos7-clang3.8:qt5.10
 MAINTAINER kotik <obrbkru@apriorit.com>
 
 RUN yum install -y  python-testtools python-pip
