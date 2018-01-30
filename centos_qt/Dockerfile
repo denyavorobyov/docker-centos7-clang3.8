@@ -20,4 +20,4 @@ RUN export PATH=$PATH:/opt/llvm-3.8.0/bin/ && \
 #/opt/Qt5.10.0/Tools/QtCreator/bin/qbs setup-qt '/opt/Qt5.10.0/5.10.0/gcc_64/bin/qmake' QtProfile && \
 /opt/Qt5.10.0/Tools/QtCreator/bin/qbs config profiles.QtProfile.baseProfile clang
 
-RUN yes | cp /opt/Qt5.10.0/5.10.0/gcc_64/lib/*.* /usr/lib64/
+RUN yes | cp /opt/Qt5.10.0/Tools/QtCreator/lib/Qt/lib/*.* /usr/lib64/
