@@ -3,21 +3,32 @@ MAINTAINER kotik <obrbkru@apriorit.com>
 
 RUN yum -y update && yum clean all
 # add custom repo
+RUN yum -y install p7zip
 RUN yum -y install epel-release yum-plugin-copr python-requests
 RUN yum install -y protobuf-compiler graphviz libxml2-devel libxslt-devel aria2
 
 #install qt
-COPY resources /srv/resources
 RUN mkdir /tmp/qt && \
 cd /tmp/qt && \
-aria2c http://download.qt.io/official_releases/qt/5.10/5.10.0/qt-opensource-linux-x64-5.10.0.run.meta4 && \
-chmod +x ./qt-opensource-linux-x64-5.10.0.run && \
-./qt-opensource-linux-x64-5.10.0.run --script /srv/resources/qt-installer-noninteractive.qs --platform minimal && \
+qtbase=5.7.1-0qtbase-Linux-RHEL_6_6-GCC-Linux-RHEL_6_6-X86_64.7z && \
+qtcreator=4.5.0-0qtcreator.7z && \
+wget http://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt5_57/qt.57.gcc_64/$qtbase && \
+wget http://download.qt.io/online/qtsdkrepository/linux_x64/desktop/tools_qtcreator/qt.tools.qtcreator/$qtcreator && \
+7za x -y $qtbase && \
+7za x -y $qtcreator && \
+mkdir /opt/Qt && \
+cp -r ./5.7 /opt/Qt && \
+cp -r ./Tools /opt/Qt && \
+cd /tmp && \
 rm -rf /tmp/qt
 
 RUN export PATH=$PATH:/opt/llvm-3.8.0/bin/ && \
-/opt/Qt5.10.0/Tools/QtCreator/bin/qbs setup-toolchains --detect && \
-#/opt/Qt5.10.0/Tools/QtCreator/bin/qbs setup-qt '/opt/Qt5.10.0/5.10.0/gcc_64/bin/qmake' QtProfile && \
-/opt/Qt5.10.0/Tools/QtCreator/bin/qbs config profiles.QtProfile.baseProfile clang
+qtBinPath=/opt/Qt/5.7/gcc_64/bin && \
+cd $qtBinPath && \
+printf "[Paths]\nPrefix=.." >> ./qt.conf && \
+creatorBinPath=/opt/Qt/Tools/QtCreator/bin && \
+$creatorBinPath/qbs setup-toolchains --detect && \
+$creatorBinPath/qbs setup-qt $qtBinPath/qmake QtProfile && \
+$creatorBinPath/qbs config profiles.QtProfile.baseProfile clang
 
-RUN yes | cp /opt/Qt5.10.0/Tools/QtCreator/lib/Qt/lib/*.* /usr/lib64/
+RUN yes | cp /opt/Qt/Tools/QtCreator/lib/Qt/lib/*.* /usr/lib64/
