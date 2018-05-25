@@ -2,7 +2,7 @@ FROM centos:7
 MAINTAINER kotik <obrbkru@apriorit.com>
 
 #build install clang 3.8.0
-RUN yum -y install epel-release python-requests && \
+RUN yum -y install epel-release python-requests subversion && \
 pushd /etc/yum.repos.d/ && curl https://copr.fedorainfracloud.org/coprs/alonid/llvm-3.8.0/repo/epel-7/alonid-llvm-3.8.0-epel-7.repo -O && popd && \
 yum install -y clang-3.8.0 clang-3.8.0-devel.x86_64 llvm-3.8.0-devel
 
